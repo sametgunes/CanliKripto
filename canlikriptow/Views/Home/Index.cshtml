@@ -1,0 +1,137 @@
+﻿@*@{
+        ViewData["Title"] = "Home Page";
+    }
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+    @{
+        ViewData["Title"] = "Home Page";
+    }*@
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>*@
+
+
+<h1>Crypto Currency Table With MVC</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Change 24h</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody id="cryptoCurrencyTableBody">
+    </tbody>
+</table>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signalr/3.1.0/signalr.min.js"></script>
+<script src="/js/signalr/dist/browser/signalr.js"></script>
+@*<script src="/js/cryptoCurrency.js"></script>*@
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/cryptoCurrencyHub").build();
+
+    connection.start()
+        .then(() => {
+            console.log("SignalR connection started.");
+
+            connection.on("ReceiveCryptoCurrencyData", function (cryptoCurrencies) {
+                updateTableWithData(cryptoCurrencies);
+            });
+
+            fetchCryptoCurrencyData();
+
+            const refreshInterval = 6000;
+            setInterval(fetchCryptoCurrencyData, refreshInterval);
+        })
+        .catch(error => console.error(error));
+
+    function updateTableWithData(cryptoCurrencies) {
+        const tableBody = document.getElementById("cryptoCurrencyTableBody");
+
+        for (let i = 0; i < cryptoCurrencies.length; i++) {
+            const crypto = cryptoCurrencies[i];
+            const symbol = crypto.symbol;
+            const name = crypto.name;
+            const price = crypto.price;
+            const change24h = crypto.change24h;
+            const date = new Date().toLocaleString();
+
+            const rowId = "cryptoRow-" + symbol;
+            let row = document.getElementById(rowId);
+
+            if (!row) {
+                row = document.createElement("tr");
+                row.id = rowId;
+
+                const symbolCell = document.createElement("td");
+                symbolCell.textContent = symbol;
+                row.appendChild(symbolCell);
+
+                const nameCell = document.createElement("td");
+                nameCell.textContent = name;
+                row.appendChild(nameCell);
+
+                const priceCell = document.createElement("td");
+                priceCell.textContent = price;
+                row.appendChild(priceCell);
+
+                const change24hCell = document.createElement("td");
+                change24hCell.textContent = change24h;
+                row.appendChild(change24hCell);
+
+                const dateCell = document.createElement("td");
+                dateCell.textContent = date;
+                row.appendChild(dateCell);
+
+                tableBody.appendChild(row);
+            } else {
+                const cells = row.getElementsByTagName("td");
+
+                cells[2].textContent = price;
+                cells[3].textContent = change24h;
+                cells[4].textContent = date;
+            }
+        }
+    }
+
+    function fetchCryptoCurrencyData() {
+        connection.invoke("SendCryptoCurrencyData", []).catch(function (err) {
+            return console.error(err.toString());
+        });
+    }
+</script>

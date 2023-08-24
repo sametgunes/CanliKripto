@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanliKripto", "CanliKripto\CanliKripto.csproj", "{EB12157E-ACC2-4D0B-8AEC-CC60E534DD44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "canlikriptow", "canlikriptow\canlikriptow.csproj", "{D506D3AB-A4D6-4FBD-9A02-C5561A2823A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KriptoWebApiProject", "KriptoWebApiProject\KriptoWebApiProject.csproj", "{84C273EE-5561-406F-8E5C-F68645FCBC75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactWebView", "ReactWebView\ReactWebView.csproj", "{6E26F265-E1C6-44B1-B8B8-72A4EF608C01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB12157E-ACC2-4D0B-8AEC-CC60E534DD44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB12157E-ACC2-4D0B-8AEC-CC60E534DD44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB12157E-ACC2-4D0B-8AEC-CC60E534DD44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB12157E-ACC2-4D0B-8AEC-CC60E534DD44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D506D3AB-A4D6-4FBD-9A02-C5561A2823A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D506D3AB-A4D6-4FBD-9A02-C5561A2823A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D506D3AB-A4D6-4FBD-9A02-C5561A2823A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D506D3AB-A4D6-4FBD-9A02-C5561A2823A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C273EE-5561-406F-8E5C-F68645FCBC75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C273EE-5561-406F-8E5C-F68645FCBC75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C273EE-5561-406F-8E5C-F68645FCBC75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C273EE-5561-406F-8E5C-F68645FCBC75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E26F265-E1C6-44B1-B8B8-72A4EF608C01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E26F265-E1C6-44B1-B8B8-72A4EF608C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E26F265-E1C6-44B1-B8B8-72A4EF608C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E26F265-E1C6-44B1-B8B8-72A4EF608C01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18CD254C-6C8A-4496-B087-BB8DD9F404EF}
+	EndGlobalSection
+EndGlobal

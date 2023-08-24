@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Crypto</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signalr/5.0.11/signalr.min.js"></script>
+</head>
+<body>
+    <table id="cryptoTable">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Change 24h</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Veriler burada dinamik olarak oluşturulacak -->
+        </tbody>
+    </table>
+
+    <script>
+        // SignalR bağlantısını kur
+        var connection = new signalR.HubConnectionBuilder().withUrl("/cryptoHub").build();
+
+        // SignalR üzerinden veri alma işlemini dinle
+        connection.on("ReceiveDataFromServer", function (cryptoCurrencies) {
+            // Tabloyu güncelle
+            updateTable(cryptoCurrencies);
+        });
+
+        // SignalR bağlantısını başlat
+        connection.start().then(function () {
+            // Verileri almak için ilk isteği gönder
+            connection.invoke("GetCryptoCurrencies");
+        }).catch(function (err) {
+            console.error(err.toString());
+        });
+
+        // Tabloyu güncelleyen fonksiyon
+        function updateTable(cryptoCurrencies) {
+            var tableBody = $("#cryptoTable tbody");
+            tableBody.empty();
+
+            for (var i = 0; i < cryptoCurrencies.length; i++) {
+                var crypto = cryptoCurrencies[i];
+                var symbol = crypto.symbol;
+                var name = crypto.name;
+                var price = crypto.current_price;
+                var change24h = crypto.price_change_percentage_24h;
+                var date = new Date(crypto.date).toLocaleString();
+
+                var row = $("<tr>");
+                row.append($("<td>").text(symbol));
+                row.append($("<td>").text(name));
+                row.append($("<td>").text(price));
+                row.append($("<td>").text(change24h));
+                row.append($("<td>").text(date));
+
+                tableBody.append(row);
+            }
+        }
+
+        // 6 saniyede bir verileri güncellemek için zamanlayıcı
+        setInterval(function () {
+            connection.invoke("GetCryptoCurrencies");
+        }, 6000);
+    </script>
+</body>
+</html>
